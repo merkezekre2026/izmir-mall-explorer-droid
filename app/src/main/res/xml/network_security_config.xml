@@ -4,6 +4,5 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">tile.openstreetmap.org</domain>
         <domain includeSubdomains="true">overpass-api.de</domain>
-        <domain includeSubdomains="true">unpkg.com</domain>
     </domain-config>
 </network-security-config>
