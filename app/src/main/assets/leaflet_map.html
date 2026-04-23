@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>İzmir AVM Haritası</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+        /* Özel marker stilleri */
+        .mall-marker {
+            background: #E53935;
+            border: 2px solid white;
+            border-radius: 50%;
+            width: 12px;
+            height: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+        .mall-marker.selected {
+            background: #1565C0;
+            width: 16px;
+            height: 16px;
+            border: 3px solid white;
+        }
+        .mall-marker.user-location {
+            background: #4CAF50;
+            width: 14px;
+            height: 14px;
+            border: 3px solid white;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+        }
+        /* Popup stilleri */
+        .mall-popup {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .mall-popup h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #1a1a1a;
+        }
+        .mall-popup p {
+            font-size: 12px;
+            color: #666;
+            margin: 2px 0;
+        }
+        .mall-popup .popup-link {
+            display: inline-block;
+            margin-top: 6px;
+            color: #1565C0;
+            font-size: 12px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        /* Cluster stilleri */
+        .marker-cluster-small {
+            background-color: rgba(181, 226, 145, 0.7);
+        }
+        .marker-cluster-small div {
+            background-color: rgba(110, 204, 57, 0.7);
+        }
+        .marker-cluster-medium {
+            background-color: rgba(240, 194, 125, 0.7);
+        }
+        .marker-cluster-medium div {
+            background-color: rgba(240, 150, 50, 0.7);
+        }
+        .marker-cluster-large {
+            background-color: rgba(253, 156, 151, 0.7);
+        }
+        .marker-cluster-large div {
+            background-color: rgba(241, 80, 70, 0.7);
+        }
+        .marker-cluster div {
+            width: 36px;
+            height: 36px;
+            margin-left: 5px;
+            margin-top: 5px;
+            text-align: center;
+            border-radius: 50%;
+            font: 13px/36px 'Helvetica Neue', Arial, sans-serif;
+            color: white;
+        }
+        .marker-cluster {
+            width: 46px;
+            height: 46px;
+            margin-left: 5px;
+            margin-top: 5px;
+            text-align: center;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+    <script src="leaflet_bridge.js"></script>
+</body>
+</html>

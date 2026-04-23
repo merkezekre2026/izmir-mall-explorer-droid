@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Harita pin ikonu -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,24C42.95,24 34,32.95 34,44C34,59.25 54,84 54,84C54,84 74,59.25 74,44C74,32.95 65.05,24 54,24ZM54,52C49.58,52 46,48.42 46,44C46,39.58 49.58,36 54,36C58.42,36 62,39.58 62,44C62,48.42 58.42,52 54,52Z"/>
+    <!-- Alışveriş arabası ikonu (küçük) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M42,56L46,56L49,68L63,68L67,58L48,58"
+        android:strokeWidth="1.5"
+        android:strokeColor="#FFFFFF"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M51,72m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M61,72m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0"/>
+</vector>

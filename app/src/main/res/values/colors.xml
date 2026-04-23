@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="blue_primary">#FF0288D1</color>
+    <color name="blue_primary_dark">#FF01579B</color>
+    <color name="blue_accent">#FF00BCD4</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="red_marker">#FFE53935</color>
+    <color name="green_location">#FF4CAF50</color>
+</resources>

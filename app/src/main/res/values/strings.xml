@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">İzmir AVM Haritası</string>
+
+    <!-- Arama ve filtreleme -->
+    <string name="search_placeholder">AVM ara…</string>
+    <string name="filters">Filtreler</string>
+    <string name="clear">Temizle</string>
+    <string name="clear_filters">Filtreleri temizle</string>
+    <string name="district_filter">İlçeye göre filtrele</string>
+    <string name="all_districts">Tümü</string>
+    <string name="with_website">Website olanlar</string>
+    <string name="with_hours">Saat bilgisi olanlar</string>
+
+    <!-- Liste -->
+    <string name="mall_list_title">%d AVM bulundu</string>
+    <string name="mall_count">%d AVM listeleniyor</string>
+    <string name="show_map">Haritayı göster</string>
+    <string name="show_list">Listeyi göster</string>
+
+    <!-- Detay -->
+    <string name="address">Adres</string>
+    <string name="district">İlçe</string>
+    <string name="coordinates">Koordinatlar</string>
+    <string name="website">Website</string>
+    <string name="opening_hours">Çalışma Saatleri</string>
+    <string name="data_source">Veri kaynağı: OpenStreetMap contributors</string>
+    <string name="open_in_maps">Haritada aç</string>
+    <string name="has_website">Website mevcut</string>
+    <string name="has_hours">Saat bilgisi mevcut</string>
+
+    <!-- Hata ve durum -->
+    <string name="retry">Tekrar dene</string>
+    <string name="offline_mode">Çevrimdışı</string>
+    <string name="loading">Yükleniyor…</string>
+    <string name="no_malls_found">İzmir\'de AVM bulunamadı.</string>
+    <string name="network_error">Ağ hatası. Önbellek kullanılıyor.</string>
+    <string name="rate_limit_error">Çok fazla istek. Lütfen bekleyin.</string>
+    <string name="timeout_error">Bağlantı zaman aşımı.</string>
+    <string name="unknown_name">İsimsiz AVM kaydı</string>
+
+    <!-- İzinler -->
+    <string name="location_permission_rationale">Mevcut konumunuzu haritada göstermek için konum izni gereklidir.</string>
+</resources>
