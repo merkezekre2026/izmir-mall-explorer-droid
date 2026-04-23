@@ -2,6 +2,12 @@
  * Leaflet Bridge - Android WebView ile iletişim köprüsü.
  * Kotlin'den gelen marker verilerini haritada gösterir.
  * Marker tıklamalarını Android tarafına iletir.
+ *
+ * Düzeltmeler:
+ * - Yerel Leaflet dosyaları kullanılıyor (CDN bağımlılığı yok)
+ * - Harita başlatma hata yakalama eklendi
+ * - Pending marker desteği: harita hazır olmadan önce gelen veriler bekletilir
+ * - DOM yükleme durumu daha güvenilir şekilde kontrol ediliyor
  */
 
 // İzmir merkez koordinatları
@@ -15,36 +21,66 @@ var selectedMarker = null;
 var allMarkers = {};
 var userLocationMarker = null;
 
+// Harita yüklenene kadar bekletilen marker'lar
+var pendingMarkers = null;
+
 /**
  * Haritayı başlatır.
  */
 function initMap() {
-    map = L.map('map', {
-        center: IZMIR_CENTER,
-        zoom: DEFAULT_ZOOM,
-        zoomControl: true,
-        attributionControl: true
-    });
+    try {
+        // Leaflet yüklenmiş mi kontrol et
+        if (typeof L === 'undefined') {
+            console.error('Leaflet kütüphanesi yüklenemedi!');
+            // 1 saniye sonra tekrar dene
+            setTimeout(initMap, 1000);
+            return;
+        }
 
-    // OSM tile layer
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        maxZoom: 19
-    }).addTo(map);
+        map = L.map('map', {
+            center: IZMIR_CENTER,
+            zoom: DEFAULT_ZOOM,
+            zoomControl: true,
+            attributionControl: true
+        });
 
-    // Marker cluster grubu
-    markersLayer = L.markerClusterGroup({
-        maxClusterRadius: 50,
-        spiderfyOnMaxZoom: true,
-        showCoverageOnHover: false,
-        zoomToBoundsOnClick: true,
-        disableClusteringAtZoom: 16
-    });
-    map.addLayer(markersLayer);
+        // OSM tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 19
+        }).addTo(map);
 
-    // Android bridge hazır bildirimi
-    if (typeof Android !== 'undefined') {
-        Android.onMapReady();
+        // Marker cluster grubu
+        markersLayer = L.markerClusterGroup({
+            maxClusterRadius: 50,
+            spiderfyOnMaxZoom: true,
+            showCoverageOnHover: false,
+            zoomToBoundsOnClick: true,
+            disableClusteringAtZoom: 16
+        });
+        map.addLayer(markersLayer);
+
+        // Harita boyutunu yeniden hesapla (WebView'de önemli)
+        setTimeout(function() {
+            map.invalidateSize();
+        }, 100);
+
+        // Bekletilen marker'ları ekle
+        if (pendingMarkers !== null) {
+            addMarkers(pendingMarkers);
+            pendingMarkers = null;
+        }
+
+        // Android bridge hazır bildirimi
+        if (typeof Android !== 'undefined') {
+            Android.onMapReady();
+        }
+
+        console.log('Harita başarıyla başlatıldı.');
+    } catch (e) {
+        console.error('Harita başlatma hatası:', e.message);
+        // Hata olsa bile 2 saniye sonra tekrar dene
+        setTimeout(initMap, 2000);
     }
 }
 
@@ -54,8 +90,9 @@ function initMap() {
  */
 function addMarkers(markers) {
     if (!map || !markersLayer) {
-        // Harita henüz hazır değilse, biraz bekle
-        setTimeout(function() { addMarkers(markers); }, 500);
+        // Harita henüz hazır değilse, verileri beklet
+        console.log('Harita henüz hazır değil, marker\'lar bekletiliyor...');
+        pendingMarkers = markers;
         return;
     }
 
@@ -104,6 +141,8 @@ function addMarkers(markers) {
     if (markers.length > 0) {
         fitAllMarkers();
     }
+
+    console.log(markers.length + ' marker eklendi.');
 }
 
 /**
@@ -221,9 +260,10 @@ function escapeHtml(text) {
 }
 
 // Haritayı başlat
-document.addEventListener('DOMContentLoaded', initMap);
-
-// DOM hazır değilse hemen başlat
 if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    // DOM zaten hazır, hemen başlat
     initMap();
+} else {
+    // DOM henüz hazır değil,DOMContentLoaded bekle
+    document.addEventListener('DOMContentLoaded', initMap);
 }
