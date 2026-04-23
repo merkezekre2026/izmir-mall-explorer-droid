@@ -1,0 +1,1 @@
+# izmir-mall-explorer-droid
